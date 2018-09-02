@@ -2,19 +2,21 @@
 # Uses cosine formula described on Wikipedia: https://en.wikipedia.org/wiki/Cosine_similarity
 # Based on implementation by vpekar: http://stackoverflow.com/q/15173225
 
+import math
+import re
 from collections import Counter
-import re, math
-
 
 # regular expression
 # \w matches any alphanumeric character and the underscore
 # + causes the RE to match 1 or more repetitions of the preceding RE
 WORD = re.compile(r'\w+')
 
+
 def textToVector(text):
     words = WORD.findall(text)
     # unordered collection where elements are stored as dict keys, and counts are stored as dict vals
     return Counter(words)
+
 
 def cosDistance(vector1, vector2):
     # set of unordered collection of unique items
@@ -30,8 +32,10 @@ def cosDistance(vector1, vector2):
     else:
         return float(numerator) / denominator
 
+
 def readFile(fileName):
     return open("../data/" + fileName, 'r').read()
+
 
 text1 = readFile("nowIsTheTime.txt")
 text2 = readFile("quickBrownFox.txt")
@@ -41,4 +45,4 @@ vector2 = textToVector(text2)
 
 cosine = cosDistance(vector1, vector2)
 
-print "Cosine Distance:\t", cosine
+print("Cosine Distance:\t", cosine)
